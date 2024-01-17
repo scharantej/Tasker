@@ -1,0 +1,59 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>To-Do List</title>
+<link rel="stylesheet" href="https://unpkg.com/vue@3/dist/vue.global.prod.js">
+</head>
+<body>
+<div id="app">
+<h1>To-Do List</h1>
+<input type="text" v-model="newItem">
+<button @click="addItem">Add</button>
+<ul>
+<li v-for="item in items" :key="item.id">
+{{ item.description }}
+<button @click="removeItem(item.id)">Remove</button>
+<button @click="markComplete(item.id)">Mark Complete</button>
+</li>
+</ul>
+</div>
+
+<script>
+const app = Vue.createApp({
+data() {
+return {
+items: [],
+newItem: ''
+}
+},
+methods: {
+addItem() {
+if (this.newItem) {
+this.items.push({
+id: Date.now(),
+description: this.newItem,
+complete: false
+})
+this.newItem = ''
+}
+},
+removeItem(id) {
+this.items = this.items.filter(item => item.id !== id)
+},
+markComplete(id) {
+const item = this.items.find(item => item.id === id)
+item.complete = true
+}
+}
+})
+
+app.mount('#app')
+</script>
+</body>
+</html>
+
+
