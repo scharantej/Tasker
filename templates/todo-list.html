@@ -1,0 +1,26 @@
+
+
+<template>
+<ul>
+<li v-for="item in items" :key="item.id">
+{{ item.description }}
+<button @click="removeItem(item.id)">Remove</button>
+<button @click="markComplete(item.id)">Mark Complete</button>
+</li>
+</ul>
+</template>
+
+<script>
+export default {
+props: ['items'],
+methods: {
+removeItem(id) {
+this.$emit('remove-item', id)
+},
+markComplete(id) {
+this.$emit('mark-complete', id)
+}
+}
+}
+</script>
+
